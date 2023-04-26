@@ -1,0 +1,20 @@
+services:
+  memgraph:
+    image: memgraph/memgraph-platform:2.7.1-memgraph2.7.0-lab2.6.0-mage1.7.0-amd
+    container_name: memgraph
+    hostname: memgraph
+    tty: true
+    ports:
+      - 7687:7687 # database instance. Bolt protocol
+      - 7444:7444 # fetch log files from Memgraph Lab
+      - 3000:3000 # Memgraph Lab application.
+    environment:
+      MEMGRAPH: "--log-level=TRACE"
+    volumes:
+      - mg_lib:/var/lib/memgraph # data persistency
+      - mg_log:/var/log/memgraph # log files
+      - mg_etc:/etc/memgraph # configuration file
+volumes:
+  mg_lib:
+  mg_log:
+  mg_etc:
